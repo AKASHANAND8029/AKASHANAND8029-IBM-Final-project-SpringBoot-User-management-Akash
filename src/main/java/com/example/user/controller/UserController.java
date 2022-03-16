@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@CrossOrigin(origins = "*")
 @RestController
 public class UserController {
     private final UserService userService;
@@ -23,7 +23,7 @@ public class UserController {
         this.userService = userService;
         this.modelMapper = modelMapper;
     }
-    @PostMapping("/create")
+    @PostMapping("/user-create")
     public ResponseEntity<ResponseModel> createTask(@RequestBody RequestModel requestModel)
     {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -32,7 +32,7 @@ public class UserController {
         userDto= userService.createUser(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(userDto,ResponseModel.class));
     }
-    @GetMapping("/list")
+    @GetMapping("/user-list")
     public ResponseEntity<List<ResponseModel>> getUsers()
     {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -44,7 +44,7 @@ public class UserController {
         }
         return ResponseEntity.ok(list);
     }
-    @GetMapping("/user/{email}")
+    @GetMapping("/find/{email}")
     public ResponseEntity<ResponseModel> findUserByEmail(@PathVariable("email") String email)
     {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -61,7 +61,7 @@ public class UserController {
 
     }
 
-    @DeleteMapping("/user/{email}")
+    @DeleteMapping("/delete/{email}")
     public ResponseEntity<String> delete(@PathVariable("email") String email)
     {
         userService.delete(email);
