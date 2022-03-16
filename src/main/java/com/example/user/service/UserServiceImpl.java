@@ -68,6 +68,12 @@ public class UserServiceImpl implements UserService{
         userRepository.delete(user);
     }
 
+    @Override
+    public UserDto validateUserByEmail(String email) {
+        User user=finduserByEmail(email);
+        return modelMapper.map(user,UserDto.class);
+    }
+
     private User finduserByEmail(String email){
         User user=userRepository.findByEmail(email);
         return  user;

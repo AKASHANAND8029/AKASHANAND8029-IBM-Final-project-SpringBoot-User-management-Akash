@@ -10,5 +10,6 @@ public interface UserService {
     List<UserDto> getUser();
     UserDto findUserByEmail(String email);
     void delete(String email);
+    UserDto validateUserByEmail(String email);
 
 }

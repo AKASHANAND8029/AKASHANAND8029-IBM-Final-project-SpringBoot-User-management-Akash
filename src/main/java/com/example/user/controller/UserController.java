@@ -52,6 +52,14 @@ public class UserController {
         return ResponseEntity.ok(modelMapper.map(userService.findUserByEmail(email),ResponseModel.class));
 
     }
+    @GetMapping("/validate/{email}")
+    public ResponseEntity<UserDto> validateUserByEmail(@PathVariable("email") String email)
+    {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        return ResponseEntity.ok(modelMapper.map(userService.findUserByEmail(email),UserDto.class));
+
+    }
 
     @DeleteMapping("/user/{email}")
     public ResponseEntity<String> delete(@PathVariable("email") String email)
