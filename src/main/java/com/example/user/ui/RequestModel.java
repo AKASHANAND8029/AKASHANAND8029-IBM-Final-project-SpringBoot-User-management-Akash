@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class RequestModel {
     private String email;
     private String userName;
-    private String encryptedPassword;
+    private String password;
     private RoleType userRole;
 }

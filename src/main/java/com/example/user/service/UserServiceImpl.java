@@ -27,9 +27,9 @@ public class UserServiceImpl implements UserService{
     public UserDto createUser(UserDto userDto) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         User user=modelMapper.map(userDto,User.class);
-        StringBuilder stringBuilder=new StringBuilder(userDto.getEncryptedPassword());
+        StringBuilder stringBuilder=new StringBuilder(userDto.getPassword());
         user.setUserId(new Random().nextInt(10000));
-        user.setEncryptedPassword(stringBuilder.reverse().toString());
+        user.setPassword(stringBuilder.reverse().toString());
         user= userRepository.save(user);
 
         return modelMapper.map(user,UserDto.class);
@@ -74,10 +74,16 @@ public class UserServiceImpl implements UserService{
         return modelMapper.map(user,UserDto.class);
     }
 
+    @Override
+    public User findByEmailAndPasswordAndUserRole(String email, String password, RoleType role) {
+        return userRepository.findByEmailAndPasswordAndUserRole(email,password, role);
+    }
+
     private User finduserByEmail(String email){
         User user=userRepository.findByEmail(email);
         return  user;
     }
+
 
 
 }
