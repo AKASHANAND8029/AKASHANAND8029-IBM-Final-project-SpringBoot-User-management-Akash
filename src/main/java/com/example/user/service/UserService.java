@@ -3,6 +3,7 @@ package com.example.user.service;
 import com.example.user.dto.UserDto;
 import com.example.user.model.User;
 import com.example.user.role.RoleType;
+import com.example.user.ui.RequestModel;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface UserService {
     UserDto validateUserByEmail(String email);
     User findByEmailAndPasswordAndUserRole(String email,String password,RoleType role);
 
+    UserDto updatePasswordByEmail(RequestModel requestModel, String email);
 }

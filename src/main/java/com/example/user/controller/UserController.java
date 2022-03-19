@@ -93,4 +93,11 @@ public class UserController {
         userService.delete(email);
         return ResponseEntity.ok("deletion Successful");
     }
+
+    @PutMapping("/update-password/{email}")
+    public ResponseEntity<ResponseModel> updatePassword(@RequestBody RequestModel requestModel,@PathVariable("email") String email )
+    {
+
+        return  ResponseEntity.ok(modelMapper.map(userService.updatePasswordByEmail(requestModel,email),ResponseModel.class));
+    }
     }

@@ -4,6 +4,7 @@ import com.example.user.dto.UserDto;
 import com.example.user.model.User;
 import com.example.user.repo.UserRepository;
 import com.example.user.role.RoleType;
+import com.example.user.ui.RequestModel;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,9 @@ public class UserServiceImpl implements UserService{
     public UserDto createUser(UserDto userDto) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         User user=modelMapper.map(userDto,User.class);
-        StringBuilder stringBuilder=new StringBuilder(userDto.getPassword());
+        //StringBuilder stringBuilder=new StringBuilder(userDto.getPassword());
         user.setUserId(new Random().nextInt(10000));
-        user.setPassword(stringBuilder.reverse().toString());
+        //user.setPassword(stringBuilder.reverse().toString());
         user= userRepository.save(user);
 
         return modelMapper.map(user,UserDto.class);
@@ -78,6 +79,15 @@ public class UserServiceImpl implements UserService{
     @Override
     public User findByEmailAndPasswordAndUserRole(String email, String password, RoleType role) {
         return userRepository.findByEmailAndPasswordAndUserRole(email,password, role);
+    }
+
+    @Override
+    public UserDto updatePasswordByEmail(RequestModel requestModel, String email) {
+
+        User user=userRepository.findByEmail(email);
+        user.setPassword(requestModel.getPassword());
+        user=userRepository.save(user);
+        return modelMapper.map(user,UserDto.class);
     }
 
     private User finduserByEmail(String email){
