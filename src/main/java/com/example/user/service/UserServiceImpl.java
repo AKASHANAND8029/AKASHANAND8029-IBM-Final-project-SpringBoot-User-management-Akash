@@ -3,6 +3,7 @@ package com.example.user.service;
 import com.example.user.dto.UserDto;
 import com.example.user.model.User;
 import com.example.user.repo.UserRepository;
+import com.example.user.role.RoleType;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
